@@ -1,11 +1,25 @@
 #coding:UTF-8
 import matplotlib.pyplot as plt
 
+def edetector(string):
+  if 'e' in string:
+    return '0'
+  else:
+    return string
+
+def a(mes):
+  if len(mes) == 2:
+    return mes
+  else:
+    return '0'+mes
+
 day = int(input('Digite o dia desejado: '))
-month = int(input('Digite o mes: '))
+month = input('Digite o mes: ')
 year = int(input('Digite o ano: '))
 inst = input("de qual instrumento você deseja obter os dados? [STA/STB] ")
-dt = str(inst)+'_'+str(day)+'0'+str(month)+str(year)+'.txt'
+dt = str(inst)+'_'+str(day)+a(month)+str(year)+'.txt'
+
+month = int(month)
 
 t = []
 BTOTAL = []
@@ -24,14 +38,12 @@ today = []
 with open(dt, 'r') as dataset:
     for line in dataset:
         line = line.strip()
-        if line[0] != '#' and  line[0] != 'E' and line[0] != '(@' and line[0] != 'd':
+        if line[0] != '#':
             try:
-                g = int(line[0])
-
-                if int(line[:2]) == day and int(line[3:5]) == month and int(line[6:10]) == year:
-                    today.append(line)
-            except:
-                pass
+              if int(line[:2]) == day and int(line[3:5]) == month and int(line[6:10]) == year:
+                today.append(line)
+            except ValueError:
+              pass
 
 for line in today:
     t.append(((float(line[11:13])*60 + float(line[14:16]))/1440)+float(line[:2]))
@@ -107,5 +119,5 @@ try:
   figManager.window.showMaximized()
 except:
   pass
-plt.savefig("graph.svg")
+plt.savefig("graph.png")
 plt.show()
