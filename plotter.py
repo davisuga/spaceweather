@@ -1,11 +1,5 @@
-#coding:UTF-8
+#coding:utf-8
 import matplotlib.pyplot as plt
-
-def edetector(string):
-  if 'e' in string:
-    return '0'
-  else:
-    return string
 
 def a(mes):
   if len(mes) == 2:
@@ -13,14 +7,13 @@ def a(mes):
   else:
     return '0'+mes
 
+
 day = int(input('Digite o dia desejado: '))
 month = input('Digite o mes: ')
 year = int(input('Digite o ano: '))
-inst = input("de qual instrumento você deseja obter os dados? [STA/STB] ")
+inst = input("de qual instrumento voce deseja obter os dados? [STA/STB] ")
 dt = str(inst)+'_'+str(day)+a(month)+str(year)+'.txt'
-
-month = int(month)
-
+print('a data escolhida eh ', dt)
 t = []
 BTOTAL = []
 NP = []
@@ -39,13 +32,17 @@ with open(dt, 'r') as dataset:
     for line in dataset:
         line = line.strip()
         if line[0] != '#':
-            try:
-              if int(line[:2]) == day and int(line[3:5]) == month and int(line[6:10]) == year:
-                today.append(line)
-            except ValueError:
-              pass
-
+          
+          #if int(line[:2]) == day and int(line[3:5]) == month and int(line[6:10]) == year:
+          today.append(line)
+          
+del today[2]
+del today[1]
+del today[0]
 for line in today:
+    print(line)
+    line = line.replace('-1.00000E+30', '000000000000')
+    print(line)
     t.append(((float(line[11:13])*60 + float(line[14:16]))/1440)+float(line[:2]))
     BTOTAL.append(float(line[23:37]))
     NP.append(float(line[37:51]))
@@ -57,6 +54,8 @@ for line in today:
     BX.append(float(line[122:137]))
     BY.append(float(line[137:152]))
     BZ.append(float(line[152:]))
+    a = line
+print(str(type(a)))
 
 fig = plt.figure()
 plt.subplots_adjust(left=0.125, bottom=0.1, right=0.9, top=0.9,
@@ -78,7 +77,6 @@ ax1.set_title("")#('BTOTAL - BX - BY - BZ', fontsize=7, x=1, y=0)
 #ax1.set_xlabel('dia')
 ax1.set_ylabel('nT')
 ax1.set_xticklabels('')
-
 
 ax2.plot(t, SPEED, color='blue', linewidth=1, label='SPEED')
 ax2.plot(t, VP_RTN, color='red', linewidth=0.4, label='VP_RTN')
