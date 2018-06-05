@@ -1,4 +1,3 @@
-#coding:utf-8
 import matplotlib.pyplot as plt
 
 def a(mes):
@@ -7,13 +6,15 @@ def a(mes):
   else:
     return '0'+mes
 
-
+'''
 day = int(input('Digite o dia desejado: '))
 month = input('Digite o mes: ')
 year = int(input('Digite o ano: '))
 inst = input("de qual instrumento voce deseja obter os dados? [STA/STB] ")
 dt = str(inst)+'_'+str(day)+a(month)+str(year)+'.txt'
-print('a data escolhida eh ', dt)
+print('a data escolhida eh ', dt)'''
+dt = input("digite o nome/diretório do arquivo: ")
+
 t = []
 BTOTAL = []
 NP = []
@@ -25,6 +26,7 @@ TOTAL_PRESSURE = []
 BX = []
 BY = []
 BZ = []
+THERMAL_SPEED = []
 
 today = []
 
@@ -40,22 +42,31 @@ del today[2]
 del today[1]
 del today[0]
 for line in today:
-    print(line)
     line = line.replace('-1.00000E+30', '000000000000')
-    print(line)
     t.append(((float(line[11:13])*60 + float(line[14:16]))/1440)+float(line[:2]))
+    #print(t[-1])
     BTOTAL.append(float(line[23:37]))
-    NP.append(float(line[37:51]))
+    #print(BTOTAL[-1])
+    NP.append(float(line[37:52]))
+    #print(NP[-1])
     SPEED.append(float(line[51:65]))
+    #print(SPEED[-1])
     TEMPERATURE.append(float(line[65:79]))
-    VP_RTN.append(float(line[79:93]))
-    BETA.append(float(line[93:107]))
-    TOTAL_PRESSURE.append(float(line[107:122]))
-    BX.append(float(line[122:137]))
-    BY.append(float(line[137:152]))
-    BZ.append(float(line[152:]))
-    a = line
-print(str(type(a)))
+    #print(TEMPERATURE[-1])
+    THERMAL_SPEED.append(float(line[79:93]))
+    #print(THERMAL_SPEED[-1])
+    VP_RTN.append(float(line[93:107]))
+    #print(VP_RTN[-1])
+    BETA.append(float(line[107:122]))
+    #print(BETA[-1])
+    TOTAL_PRESSURE.append(float(line[122:137]))
+    #print(TOTAL_PRESSURE[-1])
+    BX.append(float(line[137:152]))
+    #print(BX[-1])
+    BY.append(float(line[152:166]))
+    #print(BY[-1])
+    BZ.append(float(line[166:]))
+    #print(BZ[-1])
 
 fig = plt.figure()
 plt.subplots_adjust(left=0.125, bottom=0.1, right=0.9, top=0.9,
@@ -112,10 +123,14 @@ ax6.legend(loc='upper left')
 ax6.set_title("")#('TOTAL_PRESSURE', fontsize=7)
 ax6.set_xlabel('dia')
 ax6.set_ylabel('nT')
+
+
+
 try:
   figManager = plt.get_current_fig_manager()
   figManager.window.showMaximized()
 except:
   pass
 plt.savefig("graph.png")
+
 plt.show()
