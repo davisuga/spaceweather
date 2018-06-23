@@ -9,14 +9,6 @@ def a(mes):
   else:
     return '0'+mes
 
-'''
-day = int(input('Digite o dia desejado: '))
-month = input('Digite o mes: ')
-year = int(input('Digite o ano: '))
-inst = input("de qual instrumento voce deseja obter os dados? [STA/STB] ")
-dt = str(inst)+'_'+str(day)+a(month)+str(year)+'.txt'
-print('a data escolhida eh ', dt)'''
-
 #dt = input("digite o nome/diretório do arquivo: ")
 dt = ""
 try:
