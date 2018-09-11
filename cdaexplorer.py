@@ -71,7 +71,7 @@ def oneImageDownload(html, outputDir='/'):
 			print(MAGENTA+imageLink, outputDir+imageName)
 
 def whereIsStereo(eventDate, initialMonth, year, outputDir=""):
-	url ="https://stereo-ssc.nascom.nasa.gov/cgi-bin/make_where_gif?Day={}&month={}&year={}&hour=11&minute=21&field=&background=".format(eventDate, initialMonth, year)
+	url ="https://stereo-ssc.nascom.nasa.gov/cgi-bin/make_where_gif?day={}&month={}&year={}&hour=11&minute=21&field=&background=".format(eventDate, initialMonth, year)
 	print(url)
 	whereIsStereoPage = urlopen(url)
 	html = str(whereIsStereoPage.readlines())
@@ -108,9 +108,10 @@ def eventImagesZipDownload(initialDate, finalDate, eventDate):
 	urlretrieve(eventUrl, eventDate+'/EUVI_B/images'+eventDate+'.zip')
 	print('.zip Saved on: '+eventDate+'/EUVI_B/images'+eventDate+'.zip')
 
-	eventUrl = "stereo-ssc.nascom.nasa.gov/cgi-bin/images?frame=Displaying+1+of+573&fstart=1&fstop=573&Download=Download+all+Ahead+COR2&Session=Display&Start=20120723&Finish=20120724&Resolution=512&NumImg=0&Sample=1".format(initialDate,finalDate)
+	eventUrl = "https://stereo-ssc.nascom.nasa.gov/cgi-bin/images?frame=Displaying+1+of+573&fstart=1&fstop=573&Download=Download+all+Ahead+COR2&Session=Display&Start=20120723&Finish=20120724&Resolution=512&NumImg=0&Sample=1".format(initialDate,finalDate)
 	print('Downloading .zip files from: '+eventUrl)
 	urlretrieve(eventUrl, eventDate+'/COR2_A/images'+eventDate+'.zip')
+	
 	print(MAGENTA+'.zip Saved on: '+eventDate+'/COR2_A/images'+eventDate+'.zip')
 
 	eventUrl = "https://stereo-ssc.nascom.nasa.gov/cgi-bin/images?Detectors=aheadXcor2&frame=Displaying+1+of+573&fstart=1&fstop=573&Download=Download+all+Behind+COR2&Session=Display&Start={}&Finish={}&Resolution=512&NumImg=0&Sample=1".format(initialDate,finalDate)
@@ -130,7 +131,7 @@ for eventDate in eventDates:
 	initialMonth = eventDate[4:6]
 	finalMonth = initialMonth
 	eventDay = int(eventDate[6:8])
-	initialDay =  eventDay - 5
+	initialDay =  eventDay - 1
 	finalDay = str(int(eventDay) + 1)
 	initialDate = str(year)+str(initialMonth)+str(initialDay)
 	initialDay, initialDate, finalDay, initialMonth, finalMonth, eventDate, year = str(initialDay), str(initialDate), str(finalDay), str(initialMonth), str(finalMonth), str(eventDate), str(year)
