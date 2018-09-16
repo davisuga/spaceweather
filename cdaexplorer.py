@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 from urllib.request import urlopen
 from urllib.request import urlretrieve
 import os
@@ -70,8 +72,8 @@ def oneImageDownload(html, outputDir='/'):
 			urlretrieve(imageLink, outputDir+imageName)
 			print(MAGENTA+imageLink, outputDir+imageName)
 
-def whereIsStereo(eventDate, initialMonth, year, outputDir=""):
-	url ="https://stereo-ssc.nascom.nasa.gov/cgi-bin/make_where_gif?day={}&month={}&year={}&hour=11&minute=21&field=&background=".format(eventDate, initialMonth, year)
+def whereIsStereo(eventDay, initialMonth, year, outputDir=""):
+	url ="https://stereo-ssc.nascom.nasa.gov/cgi-bin/make_where_gif?day={}&month={}&year={}&hour=11&minute=21&field=&background=".format(eventDay, initialMonth, year)
 	print(url)
 	whereIsStereoPage = urlopen(url)
 	html = str(whereIsStereoPage.readlines())
@@ -80,7 +82,8 @@ def whereIsStereo(eventDate, initialMonth, year, outputDir=""):
 	linkStart+=5
 	linkEnd = html.find('\'></P>')
 	partialLink=html[linkStart:linkEnd]
-	imageLink = "https://stereo-ssc.nascom.nasa.gov/cgi-bin/make_where_gif/"+html[linkStart:linkEnd]
+	print(partialLink)
+	imageLink = "https://stereo-ssc.nascom.nasa.gov"+partialLink
 	print('Downloading from: ', imageLink)
 	try:
 		urlretrieve(imageLink, outputDir+'/'+eventDate+'WIS.gif')
@@ -102,13 +105,13 @@ def whereIsStereo(eventDate, initialMonth, year, outputDir=""):
 	print(MAGENTA+'Saved on: ', outputDir+'/'+eventDate+'WIS.gif')
 
 def eventImagesZipDownload(initialDate, finalDate, eventDate):
-	baseurl = 'https://stereo-ssc.nascom.nasa.gov/cgi-bin/images?frame=Displaying+1+of+573&fstart=1&fstop=573&Download=Download+all+Behind+COR2&Session=Display&Start=20120720&Finish=20120724&Resolution=512&NumImg=0&Sample=1'
+	'''https://stereo-ssc.nascom.nasa.gov/cgi-bin/images?frame=Displaying+1+of+573&fstart=1&fstop=573&Download=Download+all+Behind+COR2&Session=Display&Start=20120720&Finish=20120724&Resolution=512&NumImg=0&Sample=1'''
 	eventUrl = "https://stereo-ssc.nascom.nasa.gov/cgi-bin/images?frame=Displaying+1+of+573&fstart=1&fstop=573&Download=Download+all+Behind+EUVI+195&Session=Display&Start={}&Finish={}&Resolution=512&NumImg=0&Sample=1".format(initialDate,finalDate)
 	print('Downloading .zip files from: '+eventUrl)
 	urlretrieve(eventUrl, eventDate+'/EUVI_B/images'+eventDate+'.zip')
 	print('.zip Saved on: '+eventDate+'/EUVI_B/images'+eventDate+'.zip')
 
-	eventUrl = "https://stereo-ssc.nascom.nasa.gov/cgi-bin/images?frame=Displaying+1+of+573&fstart=1&fstop=573&Download=Download+all+Ahead+COR2&Session=Display&Start=20120723&Finish=20120724&Resolution=512&NumImg=0&Sample=1".format(initialDate,finalDate)
+	eventUrl = "https://stereo-ssc.nascom.nasa.gov/cgi-bin/images?frame=Displaying+1+of+573&fstart=1&fstop=573&Download=Download+all+Ahead+COR2&Session=Display&Start={}&Finish={}&Resolution=512&NumImg=0&Sample=1".format(initialDate, finalDate)
 	print('Downloading .zip files from: '+eventUrl)
 	urlretrieve(eventUrl, eventDate+'/COR2_A/images'+eventDate+'.zip')
 	
@@ -176,7 +179,7 @@ for eventDate in eventDates:
 			pass
 
 		if downloadData == 'W' or downloadData == 'w':
-			whereIsStereo(eventDate, initialMonth, year, eventDate)
+			whereIsStereo(eventDay, initialMonth, year, eventDate)
 
 		if downloadData == 'i' or downloadData == 'I':
 			eventImagesZipDownload(year+initialMonth+initialDay, year+finalMonth+finalDay, eventDate)
