@@ -23,7 +23,7 @@ bmagenta = '\033[45m'
 bciano = '\033[46m'
 bbranco = '\033[47m'
 
-eventDates ="20140609 20140314 20140201 20131217 20130725 20130524 20130517 20121111 20120723 20120411 20120326 20111120 20111106 20110924 20110331 20110117 20100820 20100603 20070522 20070711".split(' ')
+eventDates ="20120411 20120326 20111120 20111106 20110924 20110331 20110117 20100820 20100603 20070522 20070711".split(' ')
 
 def createFolder(directory):
     try:
@@ -172,17 +172,15 @@ for eventDate in eventDates:
 	#print("https://stereo-ssc.nascom.nasa.gov/cgi-bin/images?Detectors=aheadXcor2&Resolution=512&Display=Slideshow&Start={}&Finish={}&Sample=1&Session=Display".format(year+initialMonth+initialDate, year+finalMonth+finalDay))
 	#print("https://stereo-ssc.nascom.nasa.gov/cgi-bin/images?Detectors=behindXcor2&Resolution=512&Display=Slideshow&Start={}&Finish={}&Sample=1&Session=Display".format(year+initialMonth+initialDate, year+finalMonth+finalDay))
 	#print("https://stereo-ssc.nascom.nasa.gov/cgi-bin/make_where_gif?Day={}&month={}&year={}&hour=11&minute=21&field=&background=".format(eventDate, initialMonth, year))
-	while downloadData != 'n' and downloadData != 'N':
-		downloadData = input(CYAN+'What do you need to download? [(D)ata in Ascii/ (I)mages from EUVI/COR / (W)here is Stereo? / (N)othing]'+MAGENTA+'\n'+'')
-		print(downloadData)
-		if downloadData == "D" or downloadData == "d":
-			asciiDataDownload(year, initialMonth, initialDay, finalMonth, finalDay, eventDate)
-		else:
-			pass
-
-		if downloadData == 'W' or downloadData == 'w':
-			whereIsStereo(eventDay, initialMonth, year, eventDate)
-
-		if downloadData == 'i' or downloadData == 'I':
-			eventImagesZipDownload(year+initialMonth+initialDay, year+finalMonth+finalDay, eventDate)
-	downloadData='s'
+	#while downloadData != 'n' and downloadData != 'N':
+		#downloadData = input(CYAN+'What do you need to download? [(D)ata in Ascii/ (I)mages from EUVI/COR / (W)here is Stereo? / (N)othing]'+MAGENTA+'\n'+'')
+	print(downloadData)
+	#if downloadData == "D" or downloadData == "d":
+	asciiDataDownload(year, initialMonth, initialDay, finalMonth, finalDay, eventDate)
+	#else:
+	#	pass
+	#if downloadData == 'W' or downloadData == 'w':
+	whereIsStereo(eventDay, initialMonth, year, eventDate)
+	#if downloadData == 'i' or downloadData == 'I':
+	eventImagesZipDownload(year+initialMonth+initialDay, year+finalMonth+finalDay, eventDate)
+	#downloadData='s'
