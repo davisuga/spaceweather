@@ -23,7 +23,7 @@ bmagenta = '\033[45m'
 bciano = '\033[46m'
 bbranco = '\033[47m'
 
-eventDates ="20120411 20120326 20111120 20111106 20110924 20110331 20110117 20100820 20100603 20070522 20070711".split(' ')
+eventDates = "20120723 20110411 20140314 20121111 20120411 20120326 20111120 20111106 20110924 20110331 20110117 20100820 20100603 20070522 20070711".split(' ')
 
 def createFolder(directory):
     try:
@@ -106,23 +106,22 @@ def whereIsStereo(eventDay, initialMonth, year, outputDir=""):
 
 def eventImagesZipDownload(initialDate, finalDate, eventDate):
 	'''https://stereo-ssc.nascom.nasa.gov/cgi-bin/images?frame=Displaying+1+of+573&fstart=1&fstop=573&Download=Download+all+Behind+COR2&Session=Display&Start=20120720&Finish=20120724&Resolution=512&NumImg=0&Sample=1'''
-	eventUrl = "https://stereo-ssc.nascom.nasa.gov/cgi-bin/images?frame=Displaying+1+of+573&fstart=1&fstop=573&Download=Download+all+Behind+EUVI+195&Session=Display&Start={}&Finish={}&Resolution=512&NumImg=0&Sample=1".format(initialDate,finalDate)
+	eventUrl = "http://stereo-ssc.nascom.nasa.gov/cgi-bin/images?frame=Displaying+1+of+573&fstart=1&fstop=573&Download=Download+all+Behind+EUVI+195&Session=Display&Start={}&Finish={}&Resolution=512&NumImg=0&Sample=1".format(initialDate,finalDate)
 	print('Downloading .zip files from: '+eventUrl)
 	urlretrieve(eventUrl, eventDate+'/EUVI_B/images'+eventDate+'.zip')
 	print('.zip Saved on: '+eventDate+'/EUVI_B/images'+eventDate+'.zip')
 
-	eventUrl = "https://stereo-ssc.nascom.nasa.gov/cgi-bin/images?frame=Displaying+1+of+573&fstart=1&fstop=573&Download=Download+all+Ahead+COR2&Session=Display&Start={}&Finish={}&Resolution=512&NumImg=0&Sample=1".format(initialDate, finalDate)
+	eventUrl = "http://stereo-ssc.nascom.nasa.gov/cgi-bin/images?frame=Displaying+1+of+573&fstart=1&fstop=573&Download=Download+all+Ahead+COR2&Session=Display&Start={}&Finish={}&Resolution=512&NumImg=0&Sample=1".format(initialDate, finalDate)
 	print('Downloading .zip files from: '+eventUrl)
 	urlretrieve(eventUrl, eventDate+'/COR2_A/images'+eventDate+'.zip')
-	
 	print(MAGENTA+'.zip Saved on: '+eventDate+'/COR2_A/images'+eventDate+'.zip')
 
-	eventUrl = "https://stereo-ssc.nascom.nasa.gov/cgi-bin/images?Detectors=aheadXcor2&frame=Displaying+1+of+573&fstart=1&fstop=573&Download=Download+all+Behind+COR2&Session=Display&Start={}&Finish={}&Resolution=512&NumImg=0&Sample=1".format(initialDate,finalDate)
+	eventUrl = "http://stereo-ssc.nascom.nasa.gov/cgi-bin/images?Detectors=aheadXcor2&frame=Displaying+1+of+573&fstart=1&fstop=573&Download=Download+all+Behind+COR2&Session=Display&Start={}&Finish={}&Resolution=512&NumImg=0&Sample=1".format(initialDate,finalDate)
 	print('Downloading .zip files from: '+eventUrl)
 	urlretrieve(eventUrl, eventDate+'/COR2_B/images'+eventDate+'.zip')
 	print('.zip Saved on: '+eventDate+'/COR2_B/images'+eventDate+'.zip')
 
-	eventUrl = "https://stereo-ssc.nascom.nasa.gov/cgi-bin/images?Detectors=aheadXeuviX195&frame=Displaying+1+of+573&fstart=1&fstop=573&Download=Download+all+Ahead+EUVI+195&Session=Display&Start={}&Finish={}&Resolution=512&NumImg=0&Sample=1".format(initialDate,finalDate)
+	eventUrl = "http://stereo-ssc.nascom.nasa.gov/cgi-bin/images?Detectors=aheadXeuviX195&frame=Displaying+1+of+573&fstart=1&fstop=573&Download=Download+all+Ahead+EUVI+195&Session=Display&Start={}&Finish={}&Resolution=512&NumImg=0&Sample=1".format(initialDate,finalDate)
 	print('Downloading .zip files from: '+eventUrl)
 	urlretrieve(eventUrl, eventDate+'/EUVI_A/images'+eventDate+'.zip')
 	print(MAGENTA+'.zip Saved on: '+eventDate+'/EUVI_A/images'+eventDate+'.zip')
@@ -172,15 +171,15 @@ for eventDate in eventDates:
 	#print("https://stereo-ssc.nascom.nasa.gov/cgi-bin/images?Detectors=aheadXcor2&Resolution=512&Display=Slideshow&Start={}&Finish={}&Sample=1&Session=Display".format(year+initialMonth+initialDate, year+finalMonth+finalDay))
 	#print("https://stereo-ssc.nascom.nasa.gov/cgi-bin/images?Detectors=behindXcor2&Resolution=512&Display=Slideshow&Start={}&Finish={}&Sample=1&Session=Display".format(year+initialMonth+initialDate, year+finalMonth+finalDay))
 	#print("https://stereo-ssc.nascom.nasa.gov/cgi-bin/make_where_gif?Day={}&month={}&year={}&hour=11&minute=21&field=&background=".format(eventDate, initialMonth, year))
-	#while downloadData != 'n' and downloadData != 'N':
-		#downloadData = input(CYAN+'What do you need to download? [(D)ata in Ascii/ (I)mages from EUVI/COR / (W)here is Stereo? / (N)othing]'+MAGENTA+'\n'+'')
-	print(downloadData)
-	#if downloadData == "D" or downloadData == "d":
-	asciiDataDownload(year, initialMonth, initialDay, finalMonth, finalDay, eventDate)
-	#else:
-	#	pass
-	#if downloadData == 'W' or downloadData == 'w':
-	whereIsStereo(eventDay, initialMonth, year, eventDate)
-	#if downloadData == 'i' or downloadData == 'I':
-	eventImagesZipDownload(year+initialMonth+initialDay, year+finalMonth+finalDay, eventDate)
-	#downloadData='s'
+	while downloadData != 'n' and downloadData != 'N':
+		downloadData = input(CYAN+'What do you need to download? [(D)ata in Ascii/ (I)mages from EUVI/COR / (W)here is Stereo? / (N)othing]'+MAGENTA+'\n'+'')
+		print(downloadData)
+		if downloadData == "D" or downloadData == "d":
+			asciiDataDownload(year, initialMonth, initialDay, finalMonth, finalDay, eventDate)
+		else:
+			pass
+		if downloadData == 'W' or downloadData == 'w':
+			whereIsStereo(eventDay, initialMonth, year, eventDate)
+		if downloadData == 'i' or downloadData == 'I':
+			eventImagesZipDownload(year+initialMonth+initialDay, year+finalMonth+finalDay, eventDate)
+	downloadData='s'
