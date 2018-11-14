@@ -1,8 +1,10 @@
 #!/usr/bin/python3
-
+import requests
 from urllib.request import urlopen
 from urllib.request import urlretrieve
 import os
+import sys
+import time
 downloadData='S'
 
 RED   = "\033[1;31m"  
@@ -25,16 +27,43 @@ bbranco = '\033[47m'
 
 eventDates = "20140609 20140314 20140201 20131217 20130725 20130524 20130517 20121111 20120923 20120411 20120326 20111120 20111106 20110924 20110331 20110117 20100820 20100603 20070522 20070711".split(' ')
 
+def reporthook(count, block_size, total_size):
+	global start_time
+	if count == 0:
+		start_time = time.time()
+		return
+	duration = time.time() - start_time
+	progress_size = int(count * block_size)
+	try:
+		speed = int(progress_size / (1024 * duration))
+	except ZeroDivisionError:
+        speed = int(progress_size / (1024 * duration)+1)
+	percent = int(count * block_size * 100 / total_size)
+	sys.stdout.write("\r...%d%%, %d MB, %d KB/s, %d seconds passed" %
+					(percent, progress_size / (1024 * 1024), speed, duration))
+	#sys.stdout.flush()
+
+def save(url, filename):
+    urlretrieve(url, filename, reporthook)
+
 def createFolder(directory):
     try:
         if not os.path.exists(directory):
             os.makedirs(directory)
     except OSError:
         print (RED+'Error: Creating directory. ' +  directory)
+        
+for date in eventDates:
+	createFolder(date)
+	createFolder(date+"/EUVI_A")
+	createFolder(date+"/EUVI_B")
+	createFolder(date+"/COR2_A")
+	createFolder(date+"/COR2_B")
+
 
 def asciiDataDownload(year, initialMonth, initialDay, finalMonth, finalDay, eventDate, verbose=True):
-		webpage = urlopen("https://cdaweb.gsfc.nasa.gov/cgi-bin/eval3.cgi?dataset=STA_L2_MAGPLASMA1M%20STB_L2_MAGPLASMA_1M&select=custom&start={}%2F{}%2F{}+00%3A39%3A49.000&stop={}%2F{}%2F{}+09%3A39%3A49.000&index=istp_public&action=list&var=STA_L2_MAGPLASMA_1M+BTOTAL&var=STB_L2_MAGPLASMA_1M+BTOTAL&var=STA_L2_MAGPLASMA_1M+Np&var=STB_L2_MAGPLASMA_1M+Np&var=STA_L2_MAGPLASMA_1M+BFIELDRTN&var=STB_L2_MAGPLASMA_1M+BFIELDRTN&var=STA_L2_MAGPLASMA_1M+Vp_RTN&var=STB_L2_MAGPLASMA_1M+Vp_RTN&var=STA_L2_MAGPLASMA_1M+Beta&var=STB_L2_MAGPLASMA_1M+Beta&var=STA_L2_MAGPLASMA_1M+Total_Pressure&var=STB_L2_MAGPLASMA_1M+Total_Pressure&var=STA_L2_MAGPLASMA_1M+Vp&var=STB_L2_MAGPLASMA_1M+Vp&var=STA_L2_MAGPLASMA_1M+Tp&var=STB_L2_MAGPLASMA_1M+Tp".format(year, initialMonth, initialDay, year, finalMonth, finalDay))
-		print('input url: '+'https://cdaweb.gsfc.nasa.gov/cgi-bin/eval3.cgi?dataset=STA_L2_MAGPLASMA1M%20STB_L2_MAGPLASMA_1M&select=custom&start={}%2F{}%2F{}+00%3A39%3A49.000&stop={}%2F{}%2F{}+09%3A39%3A49.000&index=istp_public&action=list&var=STA_L2_MAGPLASMA_1M+BTOTAL&var=STB_L2_MAGPLASMA_1M+BTOTAL&var=STA_L2_MAGPLASMA_1M+Np&var=STB_L2_MAGPLASMA_1M+Np&var=STA_L2_MAGPLASMA_1M+BFIELDRTN&var=STB_L2_MAGPLASMA_1M+BFIELDRTN&var=STA_L2_MAGPLASMA_1M+Vp_RTN&var=STB_L2_MAGPLASMA_1M+Vp_RTN&var=STA_L2_MAGPLASMA_1M+Beta&var=STB_L2_MAGPLASMA_1M+Beta&var=STA_L2_MAGPLASMA_1M+Total_Pressure&var=STB_L2_MAGPLASMA_1M+Total_Pressure&var=STA_L2_MAGPLASMA_1M+Vp&var=STB_L2_MAGPLASMA_1M+Vp&var=STA_L2_MAGPLASMA_1M+Tp&var=STB_L2_MAGPLASMA_1M+Tp\n'.format(year, initialMonth, initialDay, year, finalMonth, finalDay))
+		print('input url: '+'https://cdaweb.gsfc.nasa.gov/cgi-bin/eval3.cgi?dataset=STA_L2_MAGPLASMA1M%20STB_L2_MAGPLASMA_1M&select=custom&start={}2F{}2F{}+00%3A39%3A49.000&stop={}2F{}2F{}+09%3A39%3A49.000&index=istp_public&action=list&var=STA_L2_MAGPLASMA_1M+BTOTAL&var=STB_L2_MAGPLASMA_1M+BTOTAL&var=STA_L2_MAGPLASMA_1M+Np&var=STB_L2_MAGPLASMA_1M+Np&var=STA_L2_MAGPLASMA_1M+BFIELDRTN&var=STB_L2_MAGPLASMA_1M+BFIELDRTN&var=STA_L2_MAGPLASMA_1M+Vp_RTN&var=STB_L2_MAGPLASMA_1M+Vp_RTN&var=STA_L2_MAGPLASMA_1M+Beta&var=STB_L2_MAGPLASMA_1M+Beta&var=STA_L2_MAGPLASMA_1M+Total_Pressure&var=STB_L2_MAGPLASMA_1M+Total_Pressure&var=STA_L2_MAGPLASMA_1M+Vp&var=STB_L2_MAGPLASMA_1M+Vp&var=STA_L2_MAGPLASMA_1M+Tp&var=STB_L2_MAGPLASMA_1M+Tp\n'.format(year+"%", initialMonth+"%", initialDay, year+"%", finalMonth+"%", finalDay))
+		webpage = urlopen("https://cdaweb.gsfc.nasa.gov/cgi-bin/eval3.cgi?dataset=STA_L2_MAGPLASMA1M%20STB_L2_MAGPLASMA_1M&select=custom&start={}2F{}2F{}+00%3A39%3A49.000&stop={}2F{}2F{}+09%3A39%3A49.000&index=istp_public&action=list&var=STA_L2_MAGPLASMA_1M+BTOTAL&var=STB_L2_MAGPLASMA_1M+BTOTAL&var=STA_L2_MAGPLASMA_1M+Np&var=STB_L2_MAGPLASMA_1M+Np&var=STA_L2_MAGPLASMA_1M+BFIELDRTN&var=STB_L2_MAGPLASMA_1M+BFIELDRTN&var=STA_L2_MAGPLASMA_1M+Vp_RTN&var=STB_L2_MAGPLASMA_1M+Vp_RTN&var=STA_L2_MAGPLASMA_1M+Beta&var=STB_L2_MAGPLASMA_1M+Beta&var=STA_L2_MAGPLASMA_1M+Total_Pressure&var=STB_L2_MAGPLASMA_1M+Total_Pressure&var=STA_L2_MAGPLASMA_1M+Vp&var=STB_L2_MAGPLASMA_1M+Vp&var=STA_L2_MAGPLASMA_1M+Tp&var=STB_L2_MAGPLASMA_1M+Tp".format(year+"%", initialMonth+"%", initialDay, year+"%", finalMonth+"%", finalDay))
 		webpageHtml = webpage.readlines()
 		print(BOLD+GREEN+"Reading webpage's html...\n"+RESET)
 		linkEnd = str(webpageHtml).find("\">Combined Listing</a> (tar/gzip")
@@ -44,16 +73,16 @@ def asciiDataDownload(year, initialMonth, initialDay, finalMonth, finalDay, even
 		dataLink = 'https://cdaweb.gsfc.nasa.gov/'+ str(webpageHtml)[linkStart:linkEnd]
 		createFolder(eventDate)
 		try:
-			urlretrieve(dataLink, eventDate+'/data'+eventDate+'tar.gz')  #
+			save(dataLink, eventDate+'/data'+eventDate+'tar.gz')  #
 		except FileNotFoundError:
 			createAFolder = input("Do you want to create a folder? [Y/N]")
 			if createAFolder == 'Y':
 				createFolder(eventDate)
-				urlretrieve(dataLink, eventDate+'/data'+eventDate+'tar.gz')
+				save(dataLink, eventDate+'/data'+eventDate+'tar.gz')
 			if createAFolder == 'N':
 				try:
 					os.system('cd '+eventDate)
-					urlretrieve(dataLink, eventDate+'/data'+eventDate+'tar.gz')
+					save(dataLink, eventDate+'/data'+eventDate+'tar.gz')
 				except:
 					pass
 		print(MAGENTA+"Saved on: "+eventDate+'/data'+eventDate+'tar.gz')
@@ -69,7 +98,7 @@ def oneImageDownload(html, outputDir='/'):
 			imageLink = "https://stereo-ssc.nascom.nasa.gov/"+line[linkStart:linkEnd]
 			imageLocation = imageLink.find("512/")+4
 			imageName = (imageLink[imageLocation:])
-			urlretrieve(imageLink, outputDir+imageName)
+			save(imageLink, outputDir+imageName)
 			print(MAGENTA+imageLink, outputDir+imageName)
 
 def whereIsStereo(eventDay, initialMonth, year, outputDir=""):
@@ -86,19 +115,19 @@ def whereIsStereo(eventDay, initialMonth, year, outputDir=""):
 	imageLink = "https://stereo-ssc.nascom.nasa.gov"+partialLink
 	print('Downloading from: ', imageLink)
 	try:
-		urlretrieve(imageLink, outputDir+'/'+eventDate+'WIS.gif')
+		save(imageLink, outputDir+'/'+eventDate+'WIS.gif')
 	except PermissionError:
 		os.system('sudo chmod -R 775 ../*')
-		urlretrieve(imageLink, outputDir+'/'+eventDate+'WIS.gif')
+		save(imageLink, outputDir+'/'+eventDate+'WIS.gif')
 	except FileNotFoundError:
 		createAFolder = input("Do you want to create a folder? [Y/N]")
 		if createAFolder == 'Y':
 			createFolder(eventDate)
-			urlretrieve(imageLink, outputDir+'/'+eventDate+'WIS.gif')
+			save(imageLink, outputDir+'/'+eventDate+'WIS.gif')
 		if createAFolder == 'N':
 			try:
 				os.system('cd '+eventDate)
-				urlretrieve(imageLink, outputDir+'/'+eventDate+'WIS.gif')
+				save(imageLink, outputDir+'/'+eventDate+'WIS.gif')
 			except:
 				pass
 		print(MAGENTA+"Saved on: "+eventDate+'/data'+eventDate+'tar.gz')
@@ -108,26 +137,26 @@ def eventImagesZipDownload(initialDate, finalDate, eventDate):
 	'''https://stereo-ssc.nascom.nasa.gov/cgi-bin/images?frame=Displaying+1+of+573&fstart=1&fstop=573&Download=Download+all+Behind+COR2&Session=Display&Start=20120720&Finish=20120724&Resolution=512&NumImg=0&Sample=1'''
 	eventUrl = "http://stereo-ssc.nascom.nasa.gov/cgi-bin/images?frame=Displaying+1+of+573&fstart=1&fstop=573&Download=Download+all+Behind+EUVI+195&Session=Display&Start={}&Finish={}&Resolution=512&NumImg=0&Sample=1".format(initialDate,finalDate)
 	print('Downloading .zip files from: '+eventUrl)
-	urlretrieve(eventUrl, eventDate+'/EUVI_B/images'+eventDate+'.zip')
+	save(eventUrl, eventDate+'/EUVI_B/images'+eventDate+'.zip')
 	print('.zip Saved on: '+eventDate+'/EUVI_B/images'+eventDate+'.zip')
 
 	eventUrl = "http://stereo-ssc.nascom.nasa.gov/cgi-bin/images?frame=Displaying+1+of+573&fstart=1&fstop=573&Download=Download+all+Ahead+COR2&Session=Display&Start={}&Finish={}&Resolution=512&NumImg=0&Sample=1".format(initialDate, finalDate)
 	print('Downloading .zip files from: '+eventUrl)
-	urlretrieve(eventUrl, eventDate+'/COR2_A/images'+eventDate+'.zip')
+	save(eventUrl, eventDate+'/COR2_A/images'+eventDate+'.zip')
 	print(MAGENTA+'.zip Saved on: '+eventDate+'/COR2_A/images'+eventDate+'.zip')
 
 	eventUrl = "http://stereo-ssc.nascom.nasa.gov/cgi-bin/images?Detectors=aheadXcor2&frame=Displaying+1+of+573&fstart=1&fstop=573&Download=Download+all+Behind+COR2&Session=Display&Start={}&Finish={}&Resolution=512&NumImg=0&Sample=1".format(initialDate,finalDate)
 	print('Downloading .zip files from: '+eventUrl)
-	urlretrieve(eventUrl, eventDate+'/COR2_B/images'+eventDate+'.zip')
+	save(eventUrl, eventDate+'/COR2_B/images'+eventDate+'.zip')
 	print('.zip Saved on: '+eventDate+'/COR2_B/images'+eventDate+'.zip')
 
 	eventUrl = "http://stereo-ssc.nascom.nasa.gov/cgi-bin/images?Detectors=aheadXeuviX195&frame=Displaying+1+of+573&fstart=1&fstop=573&Download=Download+all+Ahead+EUVI+195&Session=Display&Start={}&Finish={}&Resolution=512&NumImg=0&Sample=1".format(initialDate,finalDate)
 	print('Downloading .zip files from: '+eventUrl)
-	urlretrieve(eventUrl, eventDate+'/EUVI_A/images'+eventDate+'.zip')
+	save(eventUrl, eventDate+'/EUVI_A/images'+eventDate+'.zip')
 	print(MAGENTA+'.zip Saved on: '+eventDate+'/EUVI_A/images'+eventDate+'.zip')
 
 print(CYAN+"The dates of the events are:"+GREEN, *eventDates)
-keepDates = input(' Keep? [K]eep/[A]dd/[D]elete/[N]ew blank list')
+keepDates = input(' Keep? [K]eep/[A]dd/[D]elete/[N]ew blank list \n>')
 
 
 for eventDate in eventDates:
