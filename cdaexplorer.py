@@ -5,6 +5,10 @@ from urllib.request import urlretrieve
 import os
 import sys	
 import time
+try:
+	import wget
+except:
+	print("you must install wget python3 lib with: python3 -m pip install wget")
 downloadData='S'
 
 RED   = "\033[1;31m"  
@@ -25,7 +29,8 @@ bmagenta = '\033[45m'
 bciano = '\033[46m'
 bbranco = '\033[47m'
 
-eventDates = "20120723 20110411 20140314 20121111 20120411 20120326 20111120 20111106 20110924 20110331 20110117 20100820 20100603 20070522 20070711".split(' ')
+#eventDates = "20120723 20110411 20140314 20121111 20120411 20120326 20111120 20111106 20110924 20110331 20110117 20100820 20100603 20070522 20070711".split(' ')
+eventDates = "20100603 20100820 20110117 20110331 20110924 20111106 20111120 20120326 20120411 20120723 20120923 20121111".split(" ")
 
 def createFolder(directory):
 	try:
@@ -43,14 +48,14 @@ def reporthook(count, block_size, total_size):
 	try:
 		speed = int(progress_size / (1024 * duration))
 	except ZeroDivisionError:
-        speed = int(progress_size / (1024 * duration)+1)
+		speed = int(progress_size / (1024 * duration)+1)
 	percent = int(count * block_size * 100 / total_size)
 	sys.stdout.write("\r...%d%%, %d MB, %d KB/s, %d seconds passed" %
 					(percent, progress_size / (1024 * 1024), speed, duration))
 	#sys.stdout.flush()
 
 def save(url, filename):
-    urlretrieve(url, filename, reporthook)
+	urlretrieve(url, filename, reporthook)
 
 for date in eventDates:
 	createFolder(date)
@@ -146,31 +151,26 @@ def makeVideo(eventdate):
 				os.system("create_mpg.sh "+eventdate+"/COR2_B")
 
 def eventImagesZipDownload(initialDate, finalDate, eventDate):
-		downloadChoice=input("Download data from EUVI B?")
-		if downloadChoice=="y":
-			'''https://stereo-ssc.nascom.nasa.gov/cgi-bin/images?frame=Displaying+1+of+573&fstart=1&fstop=573&Download=Download+all+Behind+COR2&Session=Display&Start=20120720&Finish=20120724&Resolution=512&NumImg=0&Sample=1'''
-			eventUrl = "http://stereo-ssc.nascom.nasa.gov/cgi-bin/images?frame=Displaying+1+of+573&fstart=1&fstop=573&Download=Download+all+Behind+EUVI+195&Session=Display&Start={}&Finish={}&Resolution=512&NumImg=0&Sample=1".format(initialDate,finalDate)
-			print('Downloading .zip files from: '+eventUrl)
-			urlretrieve(eventUrl, eventDate+'/EUVI_B/images'+eventDate+'.zip')
-			print('.zip Saved on: '+eventDate+'/EUVI_B/images'+eventDate+'.zip')
-		downloadChoice=input("Download data from COR2 A?")
-		if downloadChoice=="y":
-			eventUrl = "http://stereo-ssc.nascom.nasa.gov/cgi-bin/images?frame=Displaying+1+of+573&fstart=1&fstop=573&Download=Download+all+Ahead+COR2&Session=Display&Start={}&Finish={}&Resolution=512&NumImg=0&Sample=1".format(initialDate, finalDate)
-			print('Downloading .zip files from: '+eventUrl)
-			urlretrieve(eventUrl, eventDate+'/COR2_A/images'+eventDate+'.zip')
-			print(MAGENTA+'.zip Saved on: '+eventDate+'/COR2_A/images'+eventDate+'.zip')
-		downloadChoice=input("Download data from COR2 B?")
-		if downloadChoice=="y":
-			eventUrl = "http://stereo-ssc.nascom.nasa.gov/cgi-bin/images?Detectors=aheadXcor2&frame=Displaying+1+of+573&fstart=1&fstop=573&Download=Download+all+Behind+COR2&Session=Display&Start={}&Finish={}&Resolution=512&NumImg=0&Sample=1".format(initialDate,finalDate)
-			print('Downloading .zip files from: '+eventUrl)
-			urlretrieve(eventUrl, eventDate+'/COR2_B/images'+eventDate+'.zip')
-			print('.zip Saved on: '+eventDate+'/COR2_B/images'+eventDate+'.zip')
-		downloadChoice=input("Download data from EUVI A?")
-		if downloadChoice=="y":
-			eventUrl = "http://stereo-ssc.nascom.nasa.gov/cgi-bin/images?Detectors=aheadXeuviX195&frame=Displaying+1+of+573&fstart=1&fstop=573&Download=Download+all+Ahead+EUVI+195&Session=Display&Start={}&Finish={}&Resolution=512&NumImg=0&Sample=1".format(initialDate,finalDate)
-			print('Downloading .zip files from: '+eventUrl)
-			urlretrieve(eventUrl, eventDate+'/EUVI_A/images'+eventDate+'.zip')
-			print(MAGENTA+'.zip Saved on: '+eventDate+'/EUVI_A/images'+eventDate+'.zip')
+		missions = ['EUVI_B', 'COR2_A', 'COR2_B', 'EUVI_A']
+		for mission in missions:
+			downloadChoice=input("Download data from "+mission+"?")
+			if downloadChoice=="y":
+				'''https://stereo-ssc.nascom.nasa.gov/cgi-bin/images?frame=Displaying+1+of+573&fstart=1&fstop=573&Download=Download+all+Behind+COR2&Session=Display&Start=20120720&Finish=20120724&Resolution=512&NumImg=0&Sample=1'''
+				if mission == 'EUVI_B':
+					eventUrl = "http://stereo-ssc.nascom.nasa.gov/cgi-bin/images?frame=Displaying+1+of+573&fstart=1&fstop=573&Download=Download+all+Behind+EUVI+195&Session=Display&Start={}&Finish={}&Resolution=512&NumImg=0&Sample=1".format(initialDate,finalDate)
+				if mission == 'COR2_A':
+					eventUrl = "http://stereo-ssc.nascom.nasa.gov/cgi-bin/images?frame=Displaying+1+of+573&fstart=1&fstop=573&Download=Download+all+Ahead+COR2&Session=Display&Start={}&Finish={}&Resolution=512&NumImg=0&Sample=1".format(initialDate, finalDate)
+				if mission == 'COR2_B':
+					eventUrl = "http://stereo-ssc.nascom.nasa.gov/cgi-bin/images?Detectors=aheadXcor2&frame=Displaying+1+of+573&fstart=1&fstop=573&Download=Download+all+Behind+COR2&Session=Display&Start={}&Finish={}&Resolution=512&NumImg=0&Sample=1".format(initialDate,finalDate)
+				if mission == 'EUVI_A':
+					eventUrl = "http://stereo-ssc.nascom.nasa.gov/cgi-bin/images?Detectors=aheadXeuviX195&frame=Displaying+1+of+573&fstart=1&fstop=573&Download=Download+all+Ahead+EUVI+195&Session=Display&Start={}&Finish={}&Resolution=512&NumImg=0&Sample=1".format(initialDate,finalDate)
+				try:
+					print('Downloading .zip files from: '+eventUrl)
+					urlretrieve(eventUrl, eventDate+'/'+mission+'/images'+eventDate+'.zip')
+					print('.zip Saved on: '+eventDate+'/'+mission+'/images'+eventDate+'.zip')
+				except:
+					print("wget \""+eventUrl+"\" -O "+eventDate+"/"+mission+".zip")
+					os.system("wget \""+eventUrl+"\" -O "+eventDate+"/"+mission+".zip")
 
 print(CYAN+"The dates of the events are:"+GREEN, *eventDates)
 keepDates = input(' Keep? [K]eep/[A]dd/[D]elete/[N]ew blank list \n >')
