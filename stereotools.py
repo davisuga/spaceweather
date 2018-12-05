@@ -1,5 +1,4 @@
 #!/usr/bin/python3
-import requests
 from urllib.request import urlopen
 from urllib.request import urlretrieve
 import os
