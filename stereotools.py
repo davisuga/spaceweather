@@ -157,11 +157,11 @@ def eventImagesZipDownload(initialDate, finalDate, eventDate):
 			if downloadChoice=="y":
 				'''https://stereo-ssc.nascom.nasa.gov/cgi-bin/images?frame=Displaying+1+of+573&fstart=1&fstop=573&Download=Download+all+Behind+COR2&Session=Display&Start=20120720&Finish=20120724&Resolution=512&NumImg=0&Sample=1'''
 				if mission == 'EUVI_B':
-					eventUrl = "http://stereo-ssc.nascom.nasa.gov/cgi-bin/images?frame=Displaying+1+of+573&fstart=1&fstop=573&Download=Download+all+Behind+EUVI+195&Session=Display&Start={}&Finish={}&Resolution=512&NumImg=0&Sample=1".format(initialDate,finalDate)
+					eventUrl = "http://stereo-ssc.nascom.nasa.gov/cgi-bin/images?Detectors=behindXeuviX195&frame=Displaying+1+of+573&fstart=1&fstop=573&Download=Download+all+Behind+EUVI+195&Session=Display&Start={}&Finish={}&Resolution=512&NumImg=0&Sample=1".format(initialDate,finalDate)
 				if mission == 'COR2_A':
-					eventUrl = "http://stereo-ssc.nascom.nasa.gov/cgi-bin/images?frame=Displaying+1+of+573&fstart=1&fstop=573&Download=Download+all+Ahead+COR2&Session=Display&Start={}&Finish={}&Resolution=512&NumImg=0&Sample=1".format(initialDate, finalDate)
+					eventUrl = "http://stereo-ssc.nascom.nasa.gov/cgi-bin/images?Detectors=aheadXcor2&frame=Displaying+1+of+573&fstart=1&fstop=573&Download=Download+all+Ahead+COR2&Session=Display&Start={}&Finish={}&Resolution=512&NumImg=0&Sample=1".format(initialDate, finalDate)
 				if mission == 'COR2_B':
-					eventUrl = "http://stereo-ssc.nascom.nasa.gov/cgi-bin/images?Detectors=aheadXcor2&frame=Displaying+1+of+573&fstart=1&fstop=573&Download=Download+all+Behind+COR2&Session=Display&Start={}&Finish={}&Resolution=512&NumImg=0&Sample=1".format(initialDate,finalDate)
+					eventUrl = "http://stereo-ssc.nascom.nasa.gov/cgi-bin/images?Detectors=behindXcor2&frame=Displaying+1+of+573&fstart=1&fstop=573&Download=Download+all+Behind+COR2&Session=Display&Start={}&Finish={}&Resolution=512&NumImg=0&Sample=1".format(initialDate,finalDate)
 				if mission == 'EUVI_A':
 					eventUrl = "http://stereo-ssc.nascom.nasa.gov/cgi-bin/images?Detectors=aheadXeuviX195&frame=Displaying+1+of+573&fstart=1&fstop=573&Download=Download+all+Ahead+EUVI+195&Session=Display&Start={}&Finish={}&Resolution=512&NumImg=0&Sample=1".format(initialDate,finalDate)
 				try:
