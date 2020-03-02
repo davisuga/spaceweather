@@ -1,6 +1,8 @@
 #!/usr/bin/python3
 from urllib.request import urlopen
 from urllib.request import urlretrieve
+import requests
+
 import os
 import sys	
 import time
@@ -64,15 +66,61 @@ for date in eventDates:
 	createFolder(date+"/COR2_B")
 
 def asciiDataDownload(year, initialMonth, initialDay, finalMonth, finalDay, eventDate, verbose=True):
-		webpage = urlopen("https://cdaweb.gsfc.nasa.gov/cgi-bin/eval3.cgi?dataset=STA_L2_MAGPLASMA1M%20STB_L2_MAGPLASMA_1M&select=custom&start={}%2F{}%2F{}+00%3A39%3A49.000&stop={}%2F{}%2F{}+09%3A39%3A49.000&index=istp_public&action=list&var=STA_L2_MAGPLASMA_1M+BTOTAL&var=STB_L2_MAGPLASMA_1M+BTOTAL&var=STA_L2_MAGPLASMA_1M+Np&var=STB_L2_MAGPLASMA_1M+Np&var=STA_L2_MAGPLASMA_1M+BFIELDRTN&var=STB_L2_MAGPLASMA_1M+BFIELDRTN&var=STA_L2_MAGPLASMA_1M+Vp_RTN&var=STB_L2_MAGPLASMA_1M+Vp_RTN&var=STA_L2_MAGPLASMA_1M+Beta&var=STB_L2_MAGPLASMA_1M+Beta&var=STA_L2_MAGPLASMA_1M+Total_Pressure&var=STB_L2_MAGPLASMA_1M+Total_Pressure&var=STA_L2_MAGPLASMA_1M+Vp&var=STB_L2_MAGPLASMA_1M+Vp&var=STA_L2_MAGPLASMA_1M+Tp&var=STB_L2_MAGPLASMA_1M+Tp".format(year, initialMonth, initialDay, year, finalMonth, finalDay))
-		print('input url: '+'https://cdaweb.gsfc.nasa.gov/cgi-bin/eval3.cgi?dataset=STA_L2_MAGPLASMA1M%20STB_L2_MAGPLASMA_1M&select=custom&start={}%2F{}%2F{}+00%3A39%3A49.000&stop={}%2F{}%2F{}+09%3A39%3A49.000&index=istp_public&action=list&var=STA_L2_MAGPLASMA_1M+BTOTAL&var=STB_L2_MAGPLASMA_1M+BTOTAL&var=STA_L2_MAGPLASMA_1M+Np&var=STB_L2_MAGPLASMA_1M+Np&var=STA_L2_MAGPLASMA_1M+BFIELDRTN&var=STB_L2_MAGPLASMA_1M+BFIELDRTN&var=STA_L2_MAGPLASMA_1M+Vp_RTN&var=STB_L2_MAGPLASMA_1M+Vp_RTN&var=STA_L2_MAGPLASMA_1M+Beta&var=STB_L2_MAGPLASMA_1M+Beta&var=STA_L2_MAGPLASMA_1M+Total_Pressure&var=STB_L2_MAGPLASMA_1M+Total_Pressure&var=STA_L2_MAGPLASMA_1M+Vp&var=STB_L2_MAGPLASMA_1M+Vp&var=STA_L2_MAGPLASMA_1M+Tp&var=STB_L2_MAGPLASMA_1M+Tp\n'.format(year, initialMonth, initialDay, year, finalMonth, finalDay))
-		webpageHtml = webpage.readlines()
+
+		headers = {
+		'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:73.0) Gecko/20100101 Firefox/73.0',
+		'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+		'Accept-Language': 'pt-BR,pt;q=0.8,en-US;q=0.5,en;q=0.3',
+		'Referer': 'https://cdaweb.gsfc.nasa.gov/cgi-bin/eval2.cgi',
+		'Content-Type': 'application/x-www-form-urlencoded',
+		'Origin': 'https://cdaweb.gsfc.nasa.gov',
+		'Connection': 'keep-alive',
+		'Upgrade-Insecure-Requests': '1',
+		'Cache-Control': 'max-age=0',
+		}
+
+		data = [
+		('dataset', ' STA_L2_MAGPLASMA_1M STB_L2_MAGPLASMA_1M'),
+		  ('start', '2011/09/20 18:00:00.000'),
+  ('stop', '2011/09/30 18:00:00.000'),
+		# ('start', '{}/{}/{} 18:00:00.000'.format(year, initialMonth, initialDay)),
+		# ('stop', '{}/{}/{}  18:00:00.000'.format(year, finalMonth, finalDay)),
+		('bin_value', '15'),
+		('time_unit', 'min'),
+		('missval', 'fillval'),
+		('spike_opt', 'none'),
+		('index', 'sp_phys'),
+		('nobin_spike_opt', 'light'),
+		('spinner', '1'),
+		('autoChecking', 'on'),
+		('action', 'list'),
+		('var', 'STA_L2_MAGPLASMA_1M BTOTAL'),
+		('var', 'STB_L2_MAGPLASMA_1M BTOTAL'),
+		('var', 'STA_L2_MAGPLASMA_1M Np'),
+		('var', 'STB_L2_MAGPLASMA_1M Np'),
+		('var', 'STA_L2_MAGPLASMA_1M BFIELDRTN'),
+		('var', 'STB_L2_MAGPLASMA_1M BFIELDRTN'),
+		('var', 'STA_L2_MAGPLASMA_1M Vp_RTN'),
+		('var', 'STB_L2_MAGPLASMA_1M Vp_RTN'),
+		('var', 'STA_L2_MAGPLASMA_1M Beta'),
+		('var', 'STB_L2_MAGPLASMA_1M Beta'),
+		('var', 'STA_L2_MAGPLASMA_1M Total_Pressure'),
+		('var', 'STB_L2_MAGPLASMA_1M Total_Pressure'),
+		('var', 'STA_L2_MAGPLASMA_1M Vp'),
+		('var', 'STB_L2_MAGPLASMA_1M Vp'),
+		('var', 'STA_L2_MAGPLASMA_1M Tp'),
+		('var', 'STB_L2_MAGPLASMA_1M Tp'),
+		('csv', '1')
+		]
+
+		webpageRaw = requests.post('https://cdaweb.gsfc.nasa.gov/cgi-bin/eval3.cgi', data=data, headers=headers)
+		webpageHtml = webpageRaw.text
 		print(BOLD+GREEN+"Reading webpage's html...\n"+RESET)
-		linkEnd = str(webpageHtml).find("\">Combined Listing</a> (tar/gzip")
-		linkStart = linkEnd-25
+		linkEnd = webpageHtml.find("\">Combined Listing</a> (tar/gzip")
+		linkStart = linkEnd-42
 		if verbose:
-			print("Downloading from link: ",str(webpageHtml)[linkStart:linkEnd])
-		dataLink = 'https://cdaweb.gsfc.nasa.gov/'+ str(webpageHtml)[linkStart:linkEnd]
+			print("Downloading from link: ",webpageHtml[linkStart:linkEnd])
+		dataLink = 'https://cdaweb.gsfc.nasa.gov/'+ webpageHtml[linkStart:linkEnd]
 		createFolder(eventDate)
 		try:
 			urlretrieve(dataLink, eventDate+'/data'+eventDate+'tar.gz')  #

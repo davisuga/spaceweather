@@ -1,0 +1,264 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3c.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <title>SPDF - Coordinated Data Analysis Web (CDAWeb)</title>
+      <meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+      <meta name="orgcode" content="672">
+      <meta name="rno" content="Robert.Candey.1">
+      <meta name="content-owner" content="Robert.Candey.1">
+      <meta name="webmaster" content="Tamara.J.Kovalick.1">
+
+      <meta name="description" content="The Space Physics Data Facility (SPDF) hosts the S3C Active Archive, which consists of web services for survey and high resolution data, trajectories, and scientific models.">
+<!--	<link rel="stylesheet" href="http://cdaweb.gsfc.nasa.gov/css/spdf_centered.css" type="text/css">-->
+	<link rel="stylesheet" href="/css/spdf_centered.css" type="text/css">
+        <base target="_blank" eval4.cgi>
+	<style type="text/css">	
+	        a.modellink {font-size:13px; font-style:oblique; font-weight:700;} 
+	   	a.serviceName {color: #069; background-color: #fff;}
+
+	   	#sources	td.selected {color: #ffffff; background-color: #006699; text-decoration:none;} 
+   	  	#services	td.selected {padding: 2px; border: 1px dashed #069; text-decoration:none; font-size: 16px; color: #006699;} 
+	</style>
+	
+	<script id="_fed_an_ua_tag" type="text/javascript" src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=NASA&subagency=GSFC"></script>
+
+   </head>
+   <body bg="#ffffff">
+      <div id="paper">
+         <div id="nasaheadthin">
+	    <a href="/"><img alt="
+            NASA Logo, National Aeronautics and Space Administration"
+	    src="/cdaweb_images/spdfheader3.gif" /></a> 
+	    <div id="nasaheadlinks3">
+               <div style="vertical-align:middle">
+                  <ul style="list-style:none; padding-top:0.5em">
+                  <li>
+                     <a href="https://www.nasa.gov/goddard/" target="_blank">+ Goddard Home</a>
+                  </li>
+                  <li>
+                     <a href="https://www.nasa.gov/" target="_blank">+ NASA Home</a>
+                  </li>
+               </ul>
+	    </div>
+            </div>
+         </div>
+         <table id="mainnav" cellspacing="0" cellpadding="0">
+            <tbody>
+               <tr>
+                  <td>
+                     <div class="mcell">
+	                	<a href="//spdf.gsfc.nasa.gov/">+ SPDF HOME</a>
+					 </div>
+                  </td>
+                  <td>
+                     <div class="mcell">
+	                	<a href="//spdf.gsfc.nasa.gov/data_orbits.html">+ DATA &amp; ORBITS</a>
+					 </div>
+                  </td>
+                  <td>
+                     <div class="mcell">
+                        <a href="//ccmc.gsfc.nasa.gov/modelweb/">+ MODELS at CCMC</a>
+                     </div>
+                  </td>
+                  <td>
+                     <div class="mcell">
+                        <a href="//spdf.gsfc.nasa.gov/acknowledgments.html">+ SCIENCE ENABLED</a>
+                     </div>
+                  </td>
+                  <td class="mainnavend">                  
+                     <div class="lastcell">
+        		<a href="//spdf.gsfc.nasa.gov/resources.html">+ AND MORE</a>
+     		     </div>
+                  </td>
+               </tr>
+            </tbody>
+         </table>
+<!-- new part to add feedback -->	 
+      <table cellspacing="0" cellpadding="0" class="lowerhead">
+        <tr>
+           <td style="width:179px;">
+              <table cellspacing="0" cellpadding="0">
+                 <tr>
+		    <td class="lefthead">
+		      <div style="font-size:12px; font-family: Helvetica, Arial, sans-serif; padding-top:0">
+			   <a href="/" style="font-weight:normal; color:#fff; text-decoration:none;">+ CDAWeb Home</a>
+	              </div>
+		      <div id="lefttitle">CDAWeb</div>
+                    </td>
+                  </tr>
+                  <tr>
+                     <td class="leftnav"><a href="mailto:gsfc-spdf-support@lists.nasa.gov?Subject=Feedback from CDAWeb">+ FEEDBACK</a></td>
+                  </tr>
+              </table>
+            </td>
+	    <td style="vertical-align:top;"><img src="/cdaweb_images/cdaweb4.jpg" alt="CDAWeb banner" style="padding-left:2px; height:65px; width:549px;"></td>
+         </tr>
+       </table>
+<SCRIPT type="text/javascript">
+    function create_query (params, load_eval2) 
+        {
+        var http = new XMLHttpRequest () ;
+
+        var script_path = 'eval3.cgi' ;
+
+        // Create an animated loading GIF in the center of the browser window.
+        // Initially this will be hidden.
+        function create_loading ()
+           {
+           var node ; 
+
+           node = document.createElement('div') ;
+          
+           node.id = "waiting" ;
+
+           node.style.position = "fixed" ;
+           node.style.top = "50%" ;
+           node.style.left = "50%" ;
+           node.style.width = "200px" ; 
+           node.style.height = "200px" ; 
+           node.style.padding = "0px" ;
+           node.style.margin = "-100px 0 0 -100px" ;
+           node.style.zIndex = "100000" ;
+           node.style.backgroundImage = "url('/button/large_spinning_balls.gif')" ;
+           node.style.visibility = "hidden" ;
+            
+           document.body.appendChild(node) ;
+           }
+
+        // Make the page loading GIF visible.
+        function display_loading ()
+           {
+           document.getElementById("waiting").style.visibility = "visible" ;
+           }
+
+        function  writenewpage ()
+           {          
+           if  (http.readyState == 2 /* opened */) 
+               {
+               }
+
+           if  (http.readyState == 3 /* loading */) 
+               {
+               }
+
+           if  (http.readyState == 4  /* complete */) 
+               {
+               var wait = document.getElementById("waiting") ;
+               document.body.removeChild (wait) ;
+
+               var myWindow = window.open("", "_self") ;
+               myWindow.document.write (http.responseText) ;
+               myWindow.document.close () ;
+               }
+           }
+
+        // Disable all buttons at the bottom of the page.
+        document.getElementById("prevtr").setAttribute("disabled", 1) ;
+        document.getElementById("nexttr").setAttribute("disabled", 1) ;
+        document.getElementById("panl").setAttribute("disabled", 1) ;
+        document.getElementById("panr").setAttribute("disabled", 1) ;
+        document.getElementById("zoomin").setAttribute("disabled", 1) ;
+        document.getElementById("zoomout").setAttribute("disabled", 1) ;
+        document.getElementById("goeval2").setAttribute("disabled", 1) ;
+
+        // Create the loading gif
+        create_loading () ;
+
+        // Set a 1.5 sec timer that will cause the loading gif to be displayed.
+        setTimeout(display_loading, 1500) ;
+
+        if  (load_eval2 == true) { script_path = 'eval2.cgi' }
+
+        http.open ("POST", script_path, true) ;
+
+        //Send the proper header information along with the request    
+        http.setRequestHeader("Content-type", "application/x-www-form-urlencoded") ;
+        http.withCredentials = true ;
+        http.onreadystatechange = writenewpage ;
+
+        http.send (params) ;
+
+        return ;
+        }
+</SCRIPT>
+<b>Available CDAWeb data from 2014/06/01 18:00:00.000 to 2014/06/18 18:00:00.000</b><p>
+<p>
+<img alt="" align="bottom" src="/bullet/grey2.gif">
+<b>Select dataset listings to view/download:</b><p>
+<h2>STA_L2_MAGPLA_1M_2014</h2>
+<a href="#combined" target="_self">(click here for) Combined Dataset Listing (tar/gzip, all times and all datasets selected)</a><p><img alt="" SRC="/icons/text.gif"> <a href="/tmp/cweb_y3Ars9z1WL/STA_L2_MAGPLASMA_1M_147125.txt">STA_L2_MAGPLASMA_1M_147125.txt</a> (3601K)<p>
+<img alt="" src="/icons/text.gif"> <a href="/tmp/cweb_y3Ars9z1WL/STA_L2_MAGPLASMA_1M_147125.txt1.gz">gzip listing</a> (978K)<p>
+<h2>STB_L2_MAGPLA_1M_2014</h2>
+<a href="#combined" target="_self">(click here for) Combined Dataset Listing (tar/gzip, all times and all datasets selected)</a><p><img alt="" SRC="/icons/text.gif"> <a href="/tmp/cweb_y3Ars9z1WL/STB_L2_MAGPLASMA_1M_147125.txt">STB_L2_MAGPLASMA_1M_147125.txt</a> (14231K)<p>
+<img alt="" src="/icons/text.gif"> <a href="/tmp/cweb_y3Ars9z1WL/STB_L2_MAGPLASMA_1M_147125.txt1.gz">gzip listing</a> (2724K)<p>
+<a name="combined"><p>
+<img alt="" src="/icons/text.gif"> <a href="/tmp/cweb_y3Ars9z1WL/combined_147125.tar.gz">Combined Listing</a> (tar/gzip, all times and all datasets selected) (3703K)<p>
+<P><h3>Notes:</h3>
+<ul>
+<li>Click on the hyperlinked words above to view/download the listings for the
+selected datasets.</li>
+<li>Listings are often wider than the screen, so listings saved to disk must be saved as <b>"source"</b> (AS IS) and not as <b>"text"</b> to avoid wrapping the lines.</li>
+<li>Very wide listings (many variables or variables with many dimensions) may not correctly display with all browsers, even once downloaded as a file.  Listings of this nature can only be viewed when they are downloaded as files and then opened with a text or word processing editor.</li>
+<li>Listings and plots are automatically deleted after 8 hours (DO NOT SAVE THE URLs TO THESE FILES) -- <b>save these files to your computer now</b>.</li>
+</ul>
+<!--***DEBUG previous string = dataset=+STA_L2_MAGPLASMA_1M+STB_L2_MAGPLASMA_1M&start=2014%2F05%2F15+18%3A00%3A00.000&stop=2014%2F06%2F01+18%3A00%3A00.000&bin_value=15&time_unit=min&missval=fillval&spike_opt=none&index=sp_phys&nobin_spike_opt=light&spinner=1&autoChecking=on&action=list&var=STA_L2_MAGPLASMA_1M+BTOTAL&var=STA_L2_MAGPLASMA_1M+Np&var=STA_L2_MAGPLASMA_1M+Vp&var=STA_L2_MAGPLASMA_1M+Tp&var=STA_L2_MAGPLASMA_1M+Vth&var=STA_L2_MAGPLASMA_1M+Vn_Over_V_RTN&var=STA_L2_MAGPLASMA_1M+Beta&var=STA_L2_MAGPLASMA_1M+Total_Pressure&var=STA_L2_MAGPLASMA_1M+Clock_Angle&var=STB_L2_MAGPLASMA_1M+BFIELDRTN&var=STB_L2_MAGPLASMA_1M+BTOTAL&var=STB_L2_MAGPLASMA_1M+HAE&var=STB_L2_MAGPLASMA_1M+HEE&var=STB_L2_MAGPLASMA_1M+HEEQ&var=STB_L2_MAGPLASMA_1M+CARR&var=STB_L2_MAGPLASMA_1M+RTN&var=STB_L2_MAGPLASMA_1M+R&var=STB_L2_MAGPLASMA_1M+Np&var=STB_L2_MAGPLASMA_1M+Vp&var=STB_L2_MAGPLASMA_1M+Tp&var=STB_L2_MAGPLASMA_1M+Vth&var=STB_L2_MAGPLASMA_1M+Vr_Over_V_RTN&var=STB_L2_MAGPLASMA_1M+Vt_Over_V_RTN&var=STB_L2_MAGPLASMA_1M+Vn_Over_V_RTN&var=STB_L2_MAGPLASMA_1M+Vp_RTN&var=STB_L2_MAGPLASMA_1M+Entropy&var=STB_L2_MAGPLASMA_1M+Beta&var=STB_L2_MAGPLASMA_1M+Total_Pressure&var=STB_L2_MAGPLASMA_1M+Cone_Angle&var=STB_L2_MAGPLASMA_1M+Clock_Angle&var=STB_L2_MAGPLASMA_1M+Magnetic_Pressure&var=STB_L2_MAGPLASMA_1M+Dynamic_Pressure&png=1-->
+<!--***DEBUG zoomin string = dataset=+STA_L2_MAGPLASMA_1M+STB_L2_MAGPLASMA_1M&start=2014%2F06%2F06+00%3A00%3A00.000&stop=2014%2F06%2F14+12%3A00%3A00.000&bin_value=15&time_unit=min&missval=fillval&spike_opt=none&index=sp_phys&nobin_spike_opt=light&spinner=1&autoChecking=on&action=list&var=STA_L2_MAGPLASMA_1M+BTOTAL&var=STA_L2_MAGPLASMA_1M+Np&var=STA_L2_MAGPLASMA_1M+Vp&var=STA_L2_MAGPLASMA_1M+Tp&var=STA_L2_MAGPLASMA_1M+Vth&var=STA_L2_MAGPLASMA_1M+Vn_Over_V_RTN&var=STA_L2_MAGPLASMA_1M+Beta&var=STA_L2_MAGPLASMA_1M+Total_Pressure&var=STA_L2_MAGPLASMA_1M+Clock_Angle&var=STB_L2_MAGPLASMA_1M+BFIELDRTN&var=STB_L2_MAGPLASMA_1M+BTOTAL&var=STB_L2_MAGPLASMA_1M+HAE&var=STB_L2_MAGPLASMA_1M+HEE&var=STB_L2_MAGPLASMA_1M+HEEQ&var=STB_L2_MAGPLASMA_1M+CARR&var=STB_L2_MAGPLASMA_1M+RTN&var=STB_L2_MAGPLASMA_1M+R&var=STB_L2_MAGPLASMA_1M+Np&var=STB_L2_MAGPLASMA_1M+Vp&var=STB_L2_MAGPLASMA_1M+Tp&var=STB_L2_MAGPLASMA_1M+Vth&var=STB_L2_MAGPLASMA_1M+Vr_Over_V_RTN&var=STB_L2_MAGPLASMA_1M+Vt_Over_V_RTN&var=STB_L2_MAGPLASMA_1M+Vn_Over_V_RTN&var=STB_L2_MAGPLASMA_1M+Vp_RTN&var=STB_L2_MAGPLASMA_1M+Entropy&var=STB_L2_MAGPLASMA_1M+Beta&var=STB_L2_MAGPLASMA_1M+Total_Pressure&var=STB_L2_MAGPLASMA_1M+Cone_Angle&var=STB_L2_MAGPLASMA_1M+Clock_Angle&var=STB_L2_MAGPLASMA_1M+Magnetic_Pressure&var=STB_L2_MAGPLASMA_1M+Dynamic_Pressure&png=1-->
+<!--***DEBUG panel string = dataset=+STA_L2_MAGPLASMA_1M+STB_L2_MAGPLASMA_1M&start=2014%2F05%2F24+06%3A00%3A00.000&stop=2014%2F06%2F10+06%3A00%3A00.000&bin_value=15&time_unit=min&missval=fillval&spike_opt=none&index=sp_phys&nobin_spike_opt=light&spinner=1&autoChecking=on&action=list&var=STA_L2_MAGPLASMA_1M+BTOTAL&var=STA_L2_MAGPLASMA_1M+Np&var=STA_L2_MAGPLASMA_1M+Vp&var=STA_L2_MAGPLASMA_1M+Tp&var=STA_L2_MAGPLASMA_1M+Vth&var=STA_L2_MAGPLASMA_1M+Vn_Over_V_RTN&var=STA_L2_MAGPLASMA_1M+Beta&var=STA_L2_MAGPLASMA_1M+Total_Pressure&var=STA_L2_MAGPLASMA_1M+Clock_Angle&var=STB_L2_MAGPLASMA_1M+BFIELDRTN&var=STB_L2_MAGPLASMA_1M+BTOTAL&var=STB_L2_MAGPLASMA_1M+HAE&var=STB_L2_MAGPLASMA_1M+HEE&var=STB_L2_MAGPLASMA_1M+HEEQ&var=STB_L2_MAGPLASMA_1M+CARR&var=STB_L2_MAGPLASMA_1M+RTN&var=STB_L2_MAGPLASMA_1M+R&var=STB_L2_MAGPLASMA_1M+Np&var=STB_L2_MAGPLASMA_1M+Vp&var=STB_L2_MAGPLASMA_1M+Tp&var=STB_L2_MAGPLASMA_1M+Vth&var=STB_L2_MAGPLASMA_1M+Vr_Over_V_RTN&var=STB_L2_MAGPLASMA_1M+Vt_Over_V_RTN&var=STB_L2_MAGPLASMA_1M+Vn_Over_V_RTN&var=STB_L2_MAGPLASMA_1M+Vp_RTN&var=STB_L2_MAGPLASMA_1M+Entropy&var=STB_L2_MAGPLASMA_1M+Beta&var=STB_L2_MAGPLASMA_1M+Total_Pressure&var=STB_L2_MAGPLASMA_1M+Cone_Angle&var=STB_L2_MAGPLASMA_1M+Clock_Angle&var=STB_L2_MAGPLASMA_1M+Magnetic_Pressure&var=STB_L2_MAGPLASMA_1M+Dynamic_Pressure&png=1-->
+<div>
+<INPUT TYPE="BUTTON" ID="prevtr" VALUE="<< Previous time range" ONCLICK="create_query ('dataset=+STA_L2_MAGPLASMA_1M+STB_L2_MAGPLASMA_1M&start=2014%2F05%2F15+18%3A00%3A00.000&stop=2014%2F06%2F01+18%3A00%3A00.000&bin_value=15&time_unit=min&missval=fillval&spike_opt=none&index=sp_phys&nobin_spike_opt=light&spinner=1&autoChecking=on&action=list&var=STA_L2_MAGPLASMA_1M+BTOTAL&var=STA_L2_MAGPLASMA_1M+Np&var=STA_L2_MAGPLASMA_1M+Vp&var=STA_L2_MAGPLASMA_1M+Tp&var=STA_L2_MAGPLASMA_1M+Vth&var=STA_L2_MAGPLASMA_1M+Vn_Over_V_RTN&var=STA_L2_MAGPLASMA_1M+Beta&var=STA_L2_MAGPLASMA_1M+Total_Pressure&var=STA_L2_MAGPLASMA_1M+Clock_Angle&var=STB_L2_MAGPLASMA_1M+BFIELDRTN&var=STB_L2_MAGPLASMA_1M+BTOTAL&var=STB_L2_MAGPLASMA_1M+HAE&var=STB_L2_MAGPLASMA_1M+HEE&var=STB_L2_MAGPLASMA_1M+HEEQ&var=STB_L2_MAGPLASMA_1M+CARR&var=STB_L2_MAGPLASMA_1M+RTN&var=STB_L2_MAGPLASMA_1M+R&var=STB_L2_MAGPLASMA_1M+Np&var=STB_L2_MAGPLASMA_1M+Vp&var=STB_L2_MAGPLASMA_1M+Tp&var=STB_L2_MAGPLASMA_1M+Vth&var=STB_L2_MAGPLASMA_1M+Vr_Over_V_RTN&var=STB_L2_MAGPLASMA_1M+Vt_Over_V_RTN&var=STB_L2_MAGPLASMA_1M+Vn_Over_V_RTN&var=STB_L2_MAGPLASMA_1M+Vp_RTN&var=STB_L2_MAGPLASMA_1M+Entropy&var=STB_L2_MAGPLASMA_1M+Beta&var=STB_L2_MAGPLASMA_1M+Total_Pressure&var=STB_L2_MAGPLASMA_1M+Cone_Angle&var=STB_L2_MAGPLASMA_1M+Clock_Angle&var=STB_L2_MAGPLASMA_1M+Magnetic_Pressure&var=STB_L2_MAGPLASMA_1M+Dynamic_Pressure&png=1');">
+<INPUT TYPE="BUTTON" ID="nexttr" VALUE="Next time range >>" ONCLICK="create_query ('dataset=+STA_L2_MAGPLASMA_1M+STB_L2_MAGPLASMA_1M&start=2014%2F06%2F18+18%3A00%3A00.000&stop=2014%2F07%2F05+18%3A00%3A00.000&bin_value=15&time_unit=min&missval=fillval&spike_opt=none&index=sp_phys&nobin_spike_opt=light&spinner=1&autoChecking=on&action=list&var=STA_L2_MAGPLASMA_1M+BTOTAL&var=STA_L2_MAGPLASMA_1M+Np&var=STA_L2_MAGPLASMA_1M+Vp&var=STA_L2_MAGPLASMA_1M+Tp&var=STA_L2_MAGPLASMA_1M+Vth&var=STA_L2_MAGPLASMA_1M+Vn_Over_V_RTN&var=STA_L2_MAGPLASMA_1M+Beta&var=STA_L2_MAGPLASMA_1M+Total_Pressure&var=STA_L2_MAGPLASMA_1M+Clock_Angle&var=STB_L2_MAGPLASMA_1M+BFIELDRTN&var=STB_L2_MAGPLASMA_1M+BTOTAL&var=STB_L2_MAGPLASMA_1M+HAE&var=STB_L2_MAGPLASMA_1M+HEE&var=STB_L2_MAGPLASMA_1M+HEEQ&var=STB_L2_MAGPLASMA_1M+CARR&var=STB_L2_MAGPLASMA_1M+RTN&var=STB_L2_MAGPLASMA_1M+R&var=STB_L2_MAGPLASMA_1M+Np&var=STB_L2_MAGPLASMA_1M+Vp&var=STB_L2_MAGPLASMA_1M+Tp&var=STB_L2_MAGPLASMA_1M+Vth&var=STB_L2_MAGPLASMA_1M+Vr_Over_V_RTN&var=STB_L2_MAGPLASMA_1M+Vt_Over_V_RTN&var=STB_L2_MAGPLASMA_1M+Vn_Over_V_RTN&var=STB_L2_MAGPLASMA_1M+Vp_RTN&var=STB_L2_MAGPLASMA_1M+Entropy&var=STB_L2_MAGPLASMA_1M+Beta&var=STB_L2_MAGPLASMA_1M+Total_Pressure&var=STB_L2_MAGPLASMA_1M+Cone_Angle&var=STB_L2_MAGPLASMA_1M+Clock_Angle&var=STB_L2_MAGPLASMA_1M+Magnetic_Pressure&var=STB_L2_MAGPLASMA_1M+Dynamic_Pressure&png=1');">
+<img alt="" src="/button/new01.gif">
+</div>
+<div>
+<INPUT TYPE="BUTTON" ID="zoomout" VALUE=">> Zoom IN time range <<" ONCLICK="create_query ('dataset=+STA_L2_MAGPLASMA_1M+STB_L2_MAGPLASMA_1M&start=2014%2F06%2F06+00%3A00%3A00.000&stop=2014%2F06%2F14+12%3A00%3A00.000&bin_value=15&time_unit=min&missval=fillval&spike_opt=none&index=sp_phys&nobin_spike_opt=light&spinner=1&autoChecking=on&action=list&var=STA_L2_MAGPLASMA_1M+BTOTAL&var=STA_L2_MAGPLASMA_1M+Np&var=STA_L2_MAGPLASMA_1M+Vp&var=STA_L2_MAGPLASMA_1M+Tp&var=STA_L2_MAGPLASMA_1M+Vth&var=STA_L2_MAGPLASMA_1M+Vn_Over_V_RTN&var=STA_L2_MAGPLASMA_1M+Beta&var=STA_L2_MAGPLASMA_1M+Total_Pressure&var=STA_L2_MAGPLASMA_1M+Clock_Angle&var=STB_L2_MAGPLASMA_1M+BFIELDRTN&var=STB_L2_MAGPLASMA_1M+BTOTAL&var=STB_L2_MAGPLASMA_1M+HAE&var=STB_L2_MAGPLASMA_1M+HEE&var=STB_L2_MAGPLASMA_1M+HEEQ&var=STB_L2_MAGPLASMA_1M+CARR&var=STB_L2_MAGPLASMA_1M+RTN&var=STB_L2_MAGPLASMA_1M+R&var=STB_L2_MAGPLASMA_1M+Np&var=STB_L2_MAGPLASMA_1M+Vp&var=STB_L2_MAGPLASMA_1M+Tp&var=STB_L2_MAGPLASMA_1M+Vth&var=STB_L2_MAGPLASMA_1M+Vr_Over_V_RTN&var=STB_L2_MAGPLASMA_1M+Vt_Over_V_RTN&var=STB_L2_MAGPLASMA_1M+Vn_Over_V_RTN&var=STB_L2_MAGPLASMA_1M+Vp_RTN&var=STB_L2_MAGPLASMA_1M+Entropy&var=STB_L2_MAGPLASMA_1M+Beta&var=STB_L2_MAGPLASMA_1M+Total_Pressure&var=STB_L2_MAGPLASMA_1M+Cone_Angle&var=STB_L2_MAGPLASMA_1M+Clock_Angle&var=STB_L2_MAGPLASMA_1M+Magnetic_Pressure&var=STB_L2_MAGPLASMA_1M+Dynamic_Pressure&png=1');">
+<INPUT TYPE="BUTTON" ID="zoomin"  VALUE="<< Zoom OUT time range >>" ONCLICK="create_query ('dataset=+STA_L2_MAGPLASMA_1M+STB_L2_MAGPLASMA_1M&start=2014%2F05%2F24+06%3A00%3A00.000&stop=2014%2F06%2F27+06%3A00%3A00.000&bin_value=15&time_unit=min&missval=fillval&spike_opt=none&index=sp_phys&nobin_spike_opt=light&spinner=1&autoChecking=on&action=list&var=STA_L2_MAGPLASMA_1M+BTOTAL&var=STA_L2_MAGPLASMA_1M+Np&var=STA_L2_MAGPLASMA_1M+Vp&var=STA_L2_MAGPLASMA_1M+Tp&var=STA_L2_MAGPLASMA_1M+Vth&var=STA_L2_MAGPLASMA_1M+Vn_Over_V_RTN&var=STA_L2_MAGPLASMA_1M+Beta&var=STA_L2_MAGPLASMA_1M+Total_Pressure&var=STA_L2_MAGPLASMA_1M+Clock_Angle&var=STB_L2_MAGPLASMA_1M+BFIELDRTN&var=STB_L2_MAGPLASMA_1M+BTOTAL&var=STB_L2_MAGPLASMA_1M+HAE&var=STB_L2_MAGPLASMA_1M+HEE&var=STB_L2_MAGPLASMA_1M+HEEQ&var=STB_L2_MAGPLASMA_1M+CARR&var=STB_L2_MAGPLASMA_1M+RTN&var=STB_L2_MAGPLASMA_1M+R&var=STB_L2_MAGPLASMA_1M+Np&var=STB_L2_MAGPLASMA_1M+Vp&var=STB_L2_MAGPLASMA_1M+Tp&var=STB_L2_MAGPLASMA_1M+Vth&var=STB_L2_MAGPLASMA_1M+Vr_Over_V_RTN&var=STB_L2_MAGPLASMA_1M+Vt_Over_V_RTN&var=STB_L2_MAGPLASMA_1M+Vn_Over_V_RTN&var=STB_L2_MAGPLASMA_1M+Vp_RTN&var=STB_L2_MAGPLASMA_1M+Entropy&var=STB_L2_MAGPLASMA_1M+Beta&var=STB_L2_MAGPLASMA_1M+Total_Pressure&var=STB_L2_MAGPLASMA_1M+Cone_Angle&var=STB_L2_MAGPLASMA_1M+Clock_Angle&var=STB_L2_MAGPLASMA_1M+Magnetic_Pressure&var=STB_L2_MAGPLASMA_1M+Dynamic_Pressure&png=1');">
+<img alt="" src="/button/new01.gif">
+</div>
+<div>
+<INPUT TYPE="BUTTON" ID="panl" VALUE="< Pan left" ONCLICK="create_query ('dataset=+STA_L2_MAGPLASMA_1M+STB_L2_MAGPLASMA_1M&start=2014%2F05%2F24+06%3A00%3A00.000&stop=2014%2F06%2F10+06%3A00%3A00.000&bin_value=15&time_unit=min&missval=fillval&spike_opt=none&index=sp_phys&nobin_spike_opt=light&spinner=1&autoChecking=on&action=list&var=STA_L2_MAGPLASMA_1M+BTOTAL&var=STA_L2_MAGPLASMA_1M+Np&var=STA_L2_MAGPLASMA_1M+Vp&var=STA_L2_MAGPLASMA_1M+Tp&var=STA_L2_MAGPLASMA_1M+Vth&var=STA_L2_MAGPLASMA_1M+Vn_Over_V_RTN&var=STA_L2_MAGPLASMA_1M+Beta&var=STA_L2_MAGPLASMA_1M+Total_Pressure&var=STA_L2_MAGPLASMA_1M+Clock_Angle&var=STB_L2_MAGPLASMA_1M+BFIELDRTN&var=STB_L2_MAGPLASMA_1M+BTOTAL&var=STB_L2_MAGPLASMA_1M+HAE&var=STB_L2_MAGPLASMA_1M+HEE&var=STB_L2_MAGPLASMA_1M+HEEQ&var=STB_L2_MAGPLASMA_1M+CARR&var=STB_L2_MAGPLASMA_1M+RTN&var=STB_L2_MAGPLASMA_1M+R&var=STB_L2_MAGPLASMA_1M+Np&var=STB_L2_MAGPLASMA_1M+Vp&var=STB_L2_MAGPLASMA_1M+Tp&var=STB_L2_MAGPLASMA_1M+Vth&var=STB_L2_MAGPLASMA_1M+Vr_Over_V_RTN&var=STB_L2_MAGPLASMA_1M+Vt_Over_V_RTN&var=STB_L2_MAGPLASMA_1M+Vn_Over_V_RTN&var=STB_L2_MAGPLASMA_1M+Vp_RTN&var=STB_L2_MAGPLASMA_1M+Entropy&var=STB_L2_MAGPLASMA_1M+Beta&var=STB_L2_MAGPLASMA_1M+Total_Pressure&var=STB_L2_MAGPLASMA_1M+Cone_Angle&var=STB_L2_MAGPLASMA_1M+Clock_Angle&var=STB_L2_MAGPLASMA_1M+Magnetic_Pressure&var=STB_L2_MAGPLASMA_1M+Dynamic_Pressure&png=1');">
+<INPUT TYPE="BUTTON" ID="panr" VALUE="Pan right >" ONCLICK="create_query ('dataset=+STA_L2_MAGPLASMA_1M+STB_L2_MAGPLASMA_1M&start=2014%2F06%2F10+06%3A00%3A00.000&stop=2014%2F06%2F27+06%3A00%3A00.000&bin_value=15&time_unit=min&missval=fillval&spike_opt=none&index=sp_phys&nobin_spike_opt=light&spinner=1&autoChecking=on&action=list&var=STA_L2_MAGPLASMA_1M+BTOTAL&var=STA_L2_MAGPLASMA_1M+Np&var=STA_L2_MAGPLASMA_1M+Vp&var=STA_L2_MAGPLASMA_1M+Tp&var=STA_L2_MAGPLASMA_1M+Vth&var=STA_L2_MAGPLASMA_1M+Vn_Over_V_RTN&var=STA_L2_MAGPLASMA_1M+Beta&var=STA_L2_MAGPLASMA_1M+Total_Pressure&var=STA_L2_MAGPLASMA_1M+Clock_Angle&var=STB_L2_MAGPLASMA_1M+BFIELDRTN&var=STB_L2_MAGPLASMA_1M+BTOTAL&var=STB_L2_MAGPLASMA_1M+HAE&var=STB_L2_MAGPLASMA_1M+HEE&var=STB_L2_MAGPLASMA_1M+HEEQ&var=STB_L2_MAGPLASMA_1M+CARR&var=STB_L2_MAGPLASMA_1M+RTN&var=STB_L2_MAGPLASMA_1M+R&var=STB_L2_MAGPLASMA_1M+Np&var=STB_L2_MAGPLASMA_1M+Vp&var=STB_L2_MAGPLASMA_1M+Tp&var=STB_L2_MAGPLASMA_1M+Vth&var=STB_L2_MAGPLASMA_1M+Vr_Over_V_RTN&var=STB_L2_MAGPLASMA_1M+Vt_Over_V_RTN&var=STB_L2_MAGPLASMA_1M+Vn_Over_V_RTN&var=STB_L2_MAGPLASMA_1M+Vp_RTN&var=STB_L2_MAGPLASMA_1M+Entropy&var=STB_L2_MAGPLASMA_1M+Beta&var=STB_L2_MAGPLASMA_1M+Total_Pressure&var=STB_L2_MAGPLASMA_1M+Cone_Angle&var=STB_L2_MAGPLASMA_1M+Clock_Angle&var=STB_L2_MAGPLASMA_1M+Magnetic_Pressure&var=STB_L2_MAGPLASMA_1M+Dynamic_Pressure&png=1');">
+<img alt="" src="/button/new01.gif">
+</div>
+<div>
+<INPUT TYPE="BUTTON" ID="goeval2" VALUE="Return to: CDAWeb Data Explorer" ONCLICK="create_query ('dataset=+STA_L2_MAGPLASMA_1M+STB_L2_MAGPLASMA_1M&start=2014%2F06%2F01+18%3A00%3A00.000&stop=2014%2F06%2F18+18%3A00%3A00.000&bin_value=15&time_unit=min&missval=fillval&spike_opt=none&index=sp_phys&nobin_spike_opt=light&spinner=1&autoChecking=on&action=list&var=STA_L2_MAGPLASMA_1M+BTOTAL&var=STA_L2_MAGPLASMA_1M+Np&var=STA_L2_MAGPLASMA_1M+Vp&var=STA_L2_MAGPLASMA_1M+Tp&var=STA_L2_MAGPLASMA_1M+Vth&var=STA_L2_MAGPLASMA_1M+Vn_Over_V_RTN&var=STA_L2_MAGPLASMA_1M+Beta&var=STA_L2_MAGPLASMA_1M+Total_Pressure&var=STA_L2_MAGPLASMA_1M+Clock_Angle&var=STB_L2_MAGPLASMA_1M+BFIELDRTN&var=STB_L2_MAGPLASMA_1M+BTOTAL&var=STB_L2_MAGPLASMA_1M+HAE&var=STB_L2_MAGPLASMA_1M+HEE&var=STB_L2_MAGPLASMA_1M+HEEQ&var=STB_L2_MAGPLASMA_1M+CARR&var=STB_L2_MAGPLASMA_1M+RTN&var=STB_L2_MAGPLASMA_1M+R&var=STB_L2_MAGPLASMA_1M+Np&var=STB_L2_MAGPLASMA_1M+Vp&var=STB_L2_MAGPLASMA_1M+Tp&var=STB_L2_MAGPLASMA_1M+Vth&var=STB_L2_MAGPLASMA_1M+Vr_Over_V_RTN&var=STB_L2_MAGPLASMA_1M+Vt_Over_V_RTN&var=STB_L2_MAGPLASMA_1M+Vn_Over_V_RTN&var=STB_L2_MAGPLASMA_1M+Vp_RTN&var=STB_L2_MAGPLASMA_1M+Entropy&var=STB_L2_MAGPLASMA_1M+Beta&var=STB_L2_MAGPLASMA_1M+Total_Pressure&var=STB_L2_MAGPLASMA_1M+Cone_Angle&var=STB_L2_MAGPLASMA_1M+Clock_Angle&var=STB_L2_MAGPLASMA_1M+Magnetic_Pressure&var=STB_L2_MAGPLASMA_1M+Dynamic_Pressure&png=1', true)"><img alt="" src="/button/new01.gif">
+</div>
+<p><a href="//cdaweb.gsfc.nasa.gov/notices.html">notes and caveats</a>
+
+<!-- .......................... End main content ........................... -->
+ 
+<script language="javascript" type="text/javascript">
+<!--
+function MM_jumpMenu(targ,selObj,restore){ //v3.0
+  eval(targ+".location='"+selObj.options[selObj.selectedIndex].value+"'");
+  if (restore) selObj.selectedIndex=0;
+}
+function moddate(){
+   var newd = new Date(document.lastModified);
+   const mon = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+    newd = newd.getDate() + " " + (mon[newd.getMonth()]) + " " + newd.getFullYear();
+    return newd
+}
+//-->
+</script>
+         <div id="nasafoot">
+            <a href="https://www.nasa.gov/"><img id="nasafootr" alt="NASA Logo - nasa.gov" src="/cdaweb_images/nasa_foot_nasa1_black.gif" height="48" width="51"></a>
+            <div id="nasafootlinks">
+               <ul>
+                  <li><span style="color: black;">NASA Official:</span> Robert M. Candey </br >(301)286-6707, Robert.M.Candey@nasa.gov</li>
+                  <li><span style="color: black;">Curator:</span> <a href="mailto:gsfc-spdf-support@lists.nasa.gov?Subject=Feedback from CDAWeb">Tami Kovalick</a></li>
+                  <li><span style='color:black'>Last Modified:</span> <script>document.write(moddate());</script></li>
+               </ul>
+
+            </div>
+            <div id="nasafootplus">
+               <ul>
+                  <li><span style="color: black;">Contact SPDF:</span> <a href="mailto:gsfc-spdf-support@lists.nasa.gov">gsfc-spdf-support@lists.nasa.gov</a></li>
+                  <li><a href="https://www.nasa.gov/about/highlights/HP_Privacy.html"> + Privacy Policy and Important Notices</a></li>
+               </ul>
+            </div>
+	    
+         </div>
+      </div>
+   </body>
+</html>
+

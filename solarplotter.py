@@ -3,6 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import sys
 import os
+
 #função para retornar o valor do mes independentemente da entrada
 def a(mes):
   if len(mes) == 2:
@@ -10,7 +11,6 @@ def a(mes):
   else:
     return '0'+mes
 
-  dt = ""
 try:
   dt = sys.argv[1] #atribui a dt o argumento (que é o nome do arquivo). exemplo: python plot.py arquivo.txt <- arquivo.txt é o argumento.
   print(dt)
@@ -18,15 +18,9 @@ except:
   if len(dt) < 1: #se não houver entrada direta de argumento
     dt = input("digite o nome do arquivo: ") #o programa apenas pergunta o nome do arquivo
 
-#função que usada para "desenhar" uma linha no plot (não funcionando)
-'''
-def lined(vars, ax, time=0):
-  for var in vars:
-    f = sorted(var)
-    ax.plot([time, time], [0, int(f[-1])], color = 'red', linewidth=0.5)
-'''
-#definindo variaveis como listas (similar aos arrays)
-t = []
+
+#definindo variaveis como listas 
+timeAxis = []
 BTOTAL = []
 NP = []
 SPEED = []
@@ -38,7 +32,7 @@ BX = []
 BY = []
 BZ = []
 THERMAL_SPEED = []
-today = [] #variavel  que vai armazenar as informações sobre todas as linhas do arquivo
+fileContent = [] #variavel  que vai armazenar as informações sobre todas as linhas do arquivo
 
 #abrindo o arquivo como leitura apenas
 with open(dt, 'r') as dataset:
